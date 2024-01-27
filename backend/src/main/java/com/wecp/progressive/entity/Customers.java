@@ -2,29 +2,34 @@ package com.wecp.progressive.entity;
 
 
 
-public class Customers {
-    private int customer_id;
+public class Customers implements Comparable<Customers>{
+
+    private int customerId;
     private String name;
     private String email;
     private String username;
     private String password;
     private String role;
 
-    public Customers(int customer_id,String name,String email,String username, String password)
-    {
-        this.customer_id = customer_id;
+    public Customers() {
+        // constructor
+    }
+
+    public Customers(int customerId, String name, String email, String username, String password) {
+        this.customerId = customerId;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    // Getters and setters
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getName() {
@@ -42,7 +47,6 @@ public class Customers {
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getUsername() {
         return username;
     }
@@ -59,9 +63,18 @@ public class Customers {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Customers [customer_id=" + customer_id + ", name=" + name + ", email=" + email + ", username="
-                + username + ", password=" + password + ", role=" + role + "]";
+    public String getRole() {
+        return role;
     }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override 
+    public int compareTo(Customers that)
+    {
+        return this.getName().compareTo(that.getName());
+    }
+
 }
