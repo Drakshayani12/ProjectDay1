@@ -17,7 +17,7 @@ import java.util.List;
 public class AccountController {
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     @GetMapping
     public ResponseEntity<List<Accounts>> getAllAccounts() throws SQLException {
