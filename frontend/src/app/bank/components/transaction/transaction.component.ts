@@ -7,7 +7,7 @@ import { Transaction } from "../../types/Transaction";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Account } from "../../types/Account";
 import { Customer } from "../../types/Customer";
-
+ 
 @Component({
   selector: "app-transaction",
   templateUrl: "./transaction.component.html",
@@ -23,11 +23,11 @@ export class TransactionComponent implements OnInit {
   transactionSuccess$: Observable<string>;
   users$: Observable<Customer[]>;
   isFormSubmitted: boolean = false;
-  
+ 
   errorMessages: { [key: string]: string } = {
     NOT_ENOUGH_BALANCE: "Not enough balance to complete transaction",
   };
-  
+ 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -35,24 +35,34 @@ export class TransactionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
-  
+ 
   ngOnInit(): void {
     this.role = localStorage.getItem("role");
     this.userId =localStorage.getItem("user_id");
-    
-    
+   
+   
+    if(this.role=='USER'){
+      // this.accounts$ = this.bankService.getAccounts(strUserId);
+     
+    this.accounts$ = this.bankService.getAccountsByUser(this.userId);
+   
+    } else{
       this.accounts$ = this.bankService.getAccounts();
-      console.log(this.accounts$);    
-    
+      console.log(this.accounts$);
+   
+    }
+      console.log(this.accounts$);
+   
+   
     this.transactionForm = this.formBuilder.group({
       accounts: ["", Validators.required],
       amount: ["", Validators.required],
       transactionType: ["", Validators.required],
-      
-      
+     
+     
     });
   }
-
+ 
   onSubmit() {
     this.isFormSubmitted = true;
     this.transactionError$ = of("");
